@@ -1,6 +1,6 @@
 # Vouching-management-system
 
-create and deliver the voucher to the end users. We are living in the digital world, so all of the voucher code and redeemed by the users must be tracked for the further use. This application must guarantee the performance even in the peak time, one service slow means we are losing the customers. 
+After decade of evolving, e-commerce involving deeply into people’s lives around the world. The competition between giant techs getting more intense, and Voucher is one of the biggest “weapons” in this battle.  The goals of this project are building an application to create and deliver the voucher to the end users. We are living in the digital world, so all of the voucher code and redeemed by the users must be tracked for the further use. This application must guarantee the performance even in the peak time, one service slow means we are losing the customers. 
 
 ## Architecture:
 Consider employing a microservices architecture. This architecture type breaks down your application into small, autonomous services which are easier to maintain and scale independently. Given that performance is crucial, especially during peak times, microservices can facilitate better load distribution and failure isolation.
