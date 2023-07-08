@@ -54,4 +54,15 @@ public class VoucherController {
         return ResponseEntity.ok(voucher);
     }
 
+    @GetMapping("/vouchers/search")
+    public List<Voucher> searchVouchers(@RequestParam("term") String searchTerm) {
+        return voucherService.searchVouchers(searchTerm);
+    }
+
+
+    @GetMapping("/vouchers/count")
+    public Long countRemainingVouchers() {
+        return voucherService.countRemainingVouchers();
+    }
+
 }

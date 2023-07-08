@@ -15,5 +15,10 @@ public interface VoucherService {
     boolean deleteVoucher(Long id);
 
     Voucher updateVoucher(Long id, Voucher user);
+
+    List<Voucher> searchVouchers(String searchTerm);
+
+    Long countRemainingVouchers();
+
 }
 

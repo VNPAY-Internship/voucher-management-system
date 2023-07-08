@@ -1,6 +1,5 @@
 package com.vnpay.vouchersystem.service;
 
-import com.fasterxml.jackson.databind.util.BeanUtil;
 import com.vnpay.vouchersystem.entity.CampaignEntity;
 import com.vnpay.vouchersystem.entity.VoucherEntity;
 import com.vnpay.vouchersystem.model.Campaign;
@@ -86,6 +85,39 @@ public class VoucherImpl implements VoucherService {
 
         voucherRepository.save(voucherEntity);
         return voucher;
+    }
+    @Override
+    public List<Voucher> searchVouchers(String searchTerm) {
+        List<VoucherEntity> voucherEntities = voucherRepository.searchVouchers(searchTerm);
+
+        // Convert VoucherEntities to Vouchers and return
+        return voucherEntities
+                .stream()
+                .map(voucherEntity -> {
+                    CampaignEntity campaignEntity = voucherEntity.getCampaignId();
+                    Campaign campaign = new Campaign(campaignEntity);  // Create a Campaign object using the CampaignEntity
+                    return new Voucher(
+                            voucherEntity.getId(),
+                            campaign,  // Pass the Campaign object instead of CampaignEntity
+                            voucherEntity.getCode(),
+                            voucherEntity.getStatus(),
+                            voucherEntity.getExpirationDate(),
+                            voucherEntity.getUsageLimits(),
+                            voucherEntity.getRestrictions(),
+                            voucherEntity.getCreatedAt(),
+                            voucherEntity.getUpdatedAt(),
+                            voucherEntity.getVoucherType(),
+                            voucherEntity.getRedeemDate(),
+                            voucherEntity.getRedeemedBy()
+                    );
+                })
+                .collect(Collectors.toList());
+    }
+
+
+    @Override
+    public Long countRemainingVouchers() {
+        return voucherRepository.countByStatus("unredeemed");
     }
 
 }
