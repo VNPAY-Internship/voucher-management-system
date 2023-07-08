@@ -1,5 +1,6 @@
 package com.vnpay.vouchersystem.model;
 
+import com.vnpay.vouchersystem.entity.CampaignEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.ElementCollection;
 import java.util.Date;
@@ -58,6 +59,20 @@ public class Campaign {
     }
 
     public Campaign() {
+    }
+    public Campaign(CampaignEntity campaignEntity) {
+        this.id = campaignEntity.getId();
+        this.name = campaignEntity.getName();
+        this.description = campaignEntity.getDescription();
+        this.startDate = campaignEntity.getStartDate();
+        this.endDate = campaignEntity.getEndDate();
+        this.authorizedRoles = campaignEntity.getAuthorizedRoles();
+        this.createdAt = campaignEntity.getCreatedAt();
+        this.updatedAt = campaignEntity.getUpdatedAt();
+        this.createdBy = campaignEntity.getCreatedBy();
+        this.updatedBy = campaignEntity.getUpdatedBy();
+        this.status = campaignEntity.getStatus();
+        this.budget = campaignEntity.getBudget();
     }
 
     public Long getId() {

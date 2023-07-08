@@ -1,7 +1,9 @@
 package com.vnpay.vouchersystem.service;
 
 import com.fasterxml.jackson.databind.util.BeanUtil;
+import com.vnpay.vouchersystem.entity.CampaignEntity;
 import com.vnpay.vouchersystem.entity.VoucherEntity;
+import com.vnpay.vouchersystem.model.Campaign;
 import com.vnpay.vouchersystem.model.Voucher;
 import com.vnpay.vouchersystem.repository.VoucherRepository;
 import org.springframework.beans.BeanUtils;
@@ -29,25 +31,28 @@ public class VoucherImpl implements VoucherService {
     }
     @Override
     public List<Voucher> getAllVouchers() {
-        List<VoucherEntity> voucherEntities
-                = voucherRepository.findAll();
+        List<VoucherEntity> voucherEntities = voucherRepository.findAll();
 
         return voucherEntities
                 .stream()
-                .map(voucherEntity -> new Voucher(
-                        voucherEntity.getId(),
-                        voucherEntity.getCode(),
-                        voucherEntity.getStatus(),
-                        voucherEntity.getExpirationDate(),
-                        voucherEntity.getUsageLimits(),
-                        voucherEntity.getRestrictions(),
-                        voucherEntity.getCreatedAt(),
-                        voucherEntity.getUpdatedAt(),
-                        voucherEntity.getVoucherType(),
-                        voucherEntity.getRedeemDate(),
-                        voucherEntity.getRedeemedBy()
-
-                ))
+                .map(voucherEntity -> {
+                    CampaignEntity campaignEntity = voucherEntity.getCampaignId();
+                    Campaign campaign = new Campaign(campaignEntity);  // Create a Campaign object using the CampaignEntity
+                    return new Voucher(
+                            voucherEntity.getId(),
+                            campaign,  // Pass the Campaign object instead of CampaignEntity
+                            voucherEntity.getCode(),
+                            voucherEntity.getStatus(),
+                            voucherEntity.getExpirationDate(),
+                            voucherEntity.getUsageLimits(),
+                            voucherEntity.getRestrictions(),
+                            voucherEntity.getCreatedAt(),
+                            voucherEntity.getUpdatedAt(),
+                            voucherEntity.getVoucherType(),
+                            voucherEntity.getRedeemDate(),
+                            voucherEntity.getRedeemedBy()
+                    );
+                })
                 .collect(Collectors.toList());
     }
 

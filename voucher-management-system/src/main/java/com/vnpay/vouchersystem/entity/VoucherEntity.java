@@ -15,7 +15,7 @@ public class VoucherEntity {
 
     @ManyToOne
     @JoinColumn(name = "campaign_id", nullable = false)
-    private CampaignEntity campaign;
+    private CampaignEntity campaignId;
     @Column(name = "code", nullable = false)
     private String code;
 
@@ -46,9 +46,9 @@ public class VoucherEntity {
     @Column(name = "redeemed_by")
     private String redeemedBy;
 
-    public VoucherEntity(Long id, CampaignEntity campaign, String code, String status, Date expirationDate, Integer usageLimits, String[] restrictions, Date createdAt, Date updatedAt, String voucherType, Date redeemDate, String redeemedBy) {
+    public VoucherEntity(Long id, CampaignEntity campaignId, String code, String status, Date expirationDate, Integer usageLimits, String[] restrictions, Date createdAt, Date updatedAt, String voucherType, Date redeemDate, String redeemedBy) {
         this.id = id;
-        this.campaign = campaign;
+        this.campaignId = campaignId;
         this.code = code;
         this.status = status;
         this.expirationDate = expirationDate;
@@ -72,14 +72,13 @@ public class VoucherEntity {
         this.id = id;
     }
 
-    public CampaignEntity getCampaign() {
-        return campaign;
+    public CampaignEntity getCampaignId() {
+        return campaignId;
     }
 
-    public void setCampaign(CampaignEntity campaign) {
-        this.campaign = campaign;
+    public void setCampaignId(CampaignEntity campaignId) {
+        this.campaignId = campaignId;
     }
-
 
     public String getCode() {
         return code;

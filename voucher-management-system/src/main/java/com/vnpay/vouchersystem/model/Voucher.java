@@ -1,11 +1,17 @@
 package com.vnpay.vouchersystem.model;
 
+import com.vnpay.vouchersystem.entity.CampaignEntity;
 import jakarta.persistence.Column;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 
 import java.util.Date;
 
 public class Voucher {
     private Long id;
+    @ManyToOne
+    @JoinColumn(name = "campaign_id", nullable = false)
+    private Campaign campaignId;
     @Column(name = "code", nullable = false)
     private String code;
 
@@ -36,8 +42,9 @@ public class Voucher {
     @Column(name = "redeemed_by")
     private String redeemedBy;
 
-    public Voucher(Long id, String code, String status, Date expirationDate, Integer usageLimits, String[] restrictions, Date createdAt, Date updatedAt, String voucherType, Date redeemDate, String redeemedBy) {
+    public Voucher(Long id, Campaign campaignId, String code, String status, Date expirationDate, Integer usageLimits, String[] restrictions, Date createdAt, Date updatedAt, String voucherType, Date redeemDate, String redeemedBy) {
         this.id = id;
+        this.campaignId = campaignId;
         this.code = code;
         this.status = status;
         this.expirationDate = expirationDate;
@@ -61,6 +68,13 @@ public class Voucher {
         this.id = id;
     }
 
+    public Campaign getCampaignId() {
+        return campaignId;
+    }
+
+    public void setCampaignId(Campaign campaignId) {
+        this.campaignId = campaignId;
+    }
 
     public String getCode() {
         return code;
@@ -137,6 +151,7 @@ public class Voucher {
     public String getRedeemedBy() {
         return redeemedBy;
     }
+
     public void setRedeemedBy(String redeemedBy) {
         this.redeemedBy = redeemedBy;
     }
