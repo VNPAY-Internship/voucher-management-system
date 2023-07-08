@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 @Service
 public class VoucherImpl implements VoucherService {
 
-    private VoucherRepository voucherRepository;
+    private final VoucherRepository voucherRepository;
 
     public VoucherImpl(VoucherRepository voucherRepository) {
         this.voucherRepository = voucherRepository;
@@ -32,7 +32,7 @@ public class VoucherImpl implements VoucherService {
         List<VoucherEntity> voucherEntities
                 = voucherRepository.findAll();
 
-        List<Voucher> vouchers = voucherEntities
+        return voucherEntities
                 .stream()
                 .map(voucherEntity -> new Voucher(
                         voucherEntity.getId(),
@@ -49,8 +49,6 @@ public class VoucherImpl implements VoucherService {
 
                 ))
                 .collect(Collectors.toList());
-
-        return vouchers;
     }
 
     @Override
