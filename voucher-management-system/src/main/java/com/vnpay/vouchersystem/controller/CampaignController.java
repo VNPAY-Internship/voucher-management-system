@@ -2,7 +2,6 @@ package com.vnpay.vouchersystem.controller;
 
 import com.vnpay.vouchersystem.model.Campaign;
 import com.vnpay.vouchersystem.service.CampaignService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
