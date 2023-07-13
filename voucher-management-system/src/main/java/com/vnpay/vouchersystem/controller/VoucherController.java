@@ -12,7 +12,7 @@ import java.util.Map;
 
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/v1")
 public class VoucherController {
 
     private final VoucherService voucherService;

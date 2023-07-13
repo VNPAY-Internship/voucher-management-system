@@ -4,9 +4,12 @@ import com.vnpay.vouchersystem.entity.CampaignEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.Date;
-
+@Getter @Setter @NoArgsConstructor
 public class Voucher {
     private Long id;
     @ManyToOne
@@ -54,105 +57,6 @@ public class Voucher {
         this.updatedAt = updatedAt;
         this.voucherType = voucherType;
         this.redeemDate = redeemDate;
-        this.redeemedBy = redeemedBy;
-    }
-
-    public Voucher() {
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Campaign getCampaignId() {
-        return campaignId;
-    }
-
-    public void setCampaignId(Campaign campaignId) {
-        this.campaignId = campaignId;
-    }
-
-    public String getCode() {
-        return code;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public Date getExpirationDate() {
-        return expirationDate;
-    }
-
-    public void setExpirationDate(Date expirationDate) {
-        this.expirationDate = expirationDate;
-    }
-
-    public Integer getUsageLimits() {
-        return usageLimits;
-    }
-
-    public void setUsageLimits(Integer usageLimits) {
-        this.usageLimits = usageLimits;
-    }
-
-    public String[] getRestrictions() {
-        return restrictions;
-    }
-
-    public void setRestrictions(String[] restrictions) {
-        this.restrictions = restrictions;
-    }
-
-    public Date getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public Date getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(Date updatedAt) {
-        this.updatedAt = updatedAt;
-    }
-
-    public String getVoucherType() {
-        return voucherType;
-    }
-
-    public void setVoucherType(String voucherType) {
-        this.voucherType = voucherType;
-    }
-
-    public Date getRedeemDate() {
-        return redeemDate;
-    }
-
-    public void setRedeemDate(Date redeemDate) {
-        this.redeemDate = redeemDate;
-    }
-
-    public String getRedeemedBy() {
-        return redeemedBy;
-    }
-
-    public void setRedeemedBy(String redeemedBy) {
         this.redeemedBy = redeemedBy;
     }
 }
