@@ -1,9 +1,7 @@
 package com.vnpay.vouchersystem.service;
 
-import com.vnpay.vouchersystem.entity.CampaignEntity;
 import com.vnpay.vouchersystem.model.Campaign;
 import com.vnpay.vouchersystem.repository.CampaignRepository;
-import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,71 +18,61 @@ public class CampaignImpl implements CampaignService {
 
     @Override
     public Campaign saveCampaign(Campaign campaign) {
-        CampaignEntity campaignEntity = new CampaignEntity();
-        BeanUtils.copyProperties(campaign, campaignEntity);
-        campaignRepository.save(campaignEntity);
-        campaignRepository.save(campaignEntity);
+        campaignRepository.save(campaign);
         return campaign;
     }
     @Override
     public List<Campaign> getAllCampaigns() {
-        List<CampaignEntity> campaignEntities
+        List<Campaign> campaigns
                 = campaignRepository.findAll();
 
-        return campaignEntities
+        return campaigns
                 .stream()
-                .map(campaignEntity -> new Campaign(
-                        campaignEntity.getId(),
-                        campaignEntity.getName(),
-                        campaignEntity.getDescription(),
-                        campaignEntity.getStartDate(),
-                        campaignEntity.getEndDate(),
-                        campaignEntity.getAuthorizedRoles(),
-                        campaignEntity.getCreatedAt(),
-                        campaignEntity.getUpdatedAt(),
-                        campaignEntity.getCreatedBy(),
-                        campaignEntity.getUpdatedBy(),
-                        campaignEntity.getStatus(),
-                        campaignEntity.getBudget()
+                .map(campaign -> new Campaign(
+                        campaign.getId(),
+                        campaign.getName(),
+                        campaign.getDescription(),
+                        campaign.getStartDate(),
+                        campaign.getEndDate(),
+                        campaign.getAuthorizedRoles(),
+                        campaign.getCreatedAt(),
+                        campaign.getUpdatedAt(),
+                        campaign.getCreatedBy(),
+                        campaign.getUpdatedBy(),
+                        campaign.getStatus(),
+                        campaign.getBudget()
                                 ))
                 .collect(Collectors.toList());
     }
 
     @Override
     public Campaign getCampaignById(Long id) {
-        CampaignEntity campaignEntity
-                = campaignRepository.findById(id).get();
-        Campaign campaign = new Campaign();
-        BeanUtils.copyProperties(campaignEntity, campaign);
-        return campaign;
+        return campaignRepository.findById(id).get();
     }
 
     @Override
     public boolean deleteCampaign(Long id) {
-        CampaignEntity campaign =  campaignRepository.findById(id).get();
+        Campaign campaign =  campaignRepository.findById(id).get();
         campaignRepository.delete(campaign);
         return true;
     }
 
     @Override
     public Campaign updateCampaign(Long id, Campaign campaign) {
-        CampaignEntity campaignEntity =
+        campaign =
                 campaignRepository.findById(id).get();
-        campaignEntity.setName(campaign.getName());
-        campaignEntity.setDescription(campaign.getDescription());
-        campaignEntity.setStartDate(campaign.getStartDate());
-        campaignEntity.setEndDate(campaign.getEndDate());
-        campaignEntity.setAuthorizedRoles(campaign.getAuthorizedRoles());
-        campaignEntity.setCreatedAt(campaign.getCreatedAt());
-        campaignEntity.setUpdatedAt(campaign.getUpdatedAt());
-        campaignEntity.setCreatedBy(campaign.getCreatedBy());
-        campaignEntity.setUpdatedBy(campaign.getUpdatedBy());
-        campaignEntity.setStatus(campaign.getStatus());
-        campaignEntity.setBudget(campaign.getBudget());
-        campaignRepository.save(campaignEntity);
+        campaign.setName(campaign.getName());
+        campaign.setDescription(campaign.getDescription());
+        campaign.setStartDate(campaign.getStartDate());
+        campaign.setEndDate(campaign.getEndDate());
+        campaign.setAuthorizedRoles(campaign.getAuthorizedRoles());
+        campaign.setCreatedAt(campaign.getCreatedAt());
+        campaign.setUpdatedAt(campaign.getUpdatedAt());
+        campaign.setCreatedBy(campaign.getCreatedBy());
+        campaign.setUpdatedBy(campaign.getUpdatedBy());
+        campaign.setStatus(campaign.getStatus());
+        campaign.setBudget(campaign.getBudget());
+        campaignRepository.save(campaign);
         return campaign;
     }
-
-
-
 }

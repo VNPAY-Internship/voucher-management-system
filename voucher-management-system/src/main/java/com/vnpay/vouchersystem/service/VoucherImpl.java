@@ -1,11 +1,8 @@
 package com.vnpay.vouchersystem.service;
 
-import com.vnpay.vouchersystem.entity.CampaignEntity;
-import com.vnpay.vouchersystem.entity.VoucherEntity;
 import com.vnpay.vouchersystem.model.Campaign;
 import com.vnpay.vouchersystem.model.Voucher;
 import com.vnpay.vouchersystem.repository.VoucherRepository;
-import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,34 +19,30 @@ public class VoucherImpl implements VoucherService {
 
     @Override
     public Voucher saveVoucher(Voucher voucher) {
-        VoucherEntity voucherEntity = new VoucherEntity();
-        BeanUtils.copyProperties(voucher, voucherEntity);
-        voucherRepository.save(voucherEntity);
-        voucherRepository.save(voucherEntity);
+        voucherRepository.save(voucher);
         return voucher;
     }
     @Override
     public List<Voucher> getAllVouchers() {
-        List<VoucherEntity> voucherEntities = voucherRepository.findAll();
+        List<Voucher> vouchers = voucherRepository.findAll();
 
-        return voucherEntities
+        return vouchers
                 .stream()
-                .map(voucherEntity -> {
-                    CampaignEntity campaignEntity = voucherEntity.getCampaignId();
-                    Campaign campaign = new Campaign(campaignEntity);  // Create a Campaign object using the CampaignEntity
+                .map(voucher -> {
+                    Campaign campaign = voucher.getCampaignId();
                     return new Voucher(
-                            voucherEntity.getId(),
-                            campaign,  // Pass the Campaign object instead of CampaignEntity
-                            voucherEntity.getCode(),
-                            voucherEntity.getStatus(),
-                            voucherEntity.getExpirationDate(),
-                            voucherEntity.getUsageLimits(),
-                            voucherEntity.getRestrictions(),
-                            voucherEntity.getCreatedAt(),
-                            voucherEntity.getUpdatedAt(),
-                            voucherEntity.getVoucherType(),
-                            voucherEntity.getRedeemDate(),
-                            voucherEntity.getRedeemedBy()
+                            voucher.getId(),
+                            campaign,
+                            voucher.getCode(),
+                            voucher.getStatus(),
+                            voucher.getExpirationDate(),
+                            voucher.getUsageLimits(),
+                            voucher.getRestrictions(),
+                            voucher.getCreatedAt(),
+                            voucher.getUpdatedAt(),
+                            voucher.getVoucherType(),
+                            voucher.getRedeemDate(),
+                            voucher.getRedeemedBy()
                     );
                 })
                 .collect(Collectors.toList());
@@ -57,63 +50,37 @@ public class VoucherImpl implements VoucherService {
 
     @Override
     public Voucher getVoucherById(Long id) {
-        VoucherEntity voucherEntity
-                = voucherRepository.findById(id).get();
-        Voucher voucher = new Voucher();
-        BeanUtils.copyProperties(voucherEntity, voucher);
-        return voucher;
+        return voucherRepository.findById(id).get();
     }
 
     @Override
     public boolean deleteVoucher(Long id) {
-        VoucherEntity voucher =  voucherRepository.findById(id).get();
+        Voucher voucher =  voucherRepository.findById(id).get();
         voucherRepository.delete(voucher);
         return true;
     }
 
     @Override
     public Voucher updateVoucher(Long id, Voucher voucher) {
-        VoucherEntity voucherEntity =
+        voucher =
                 voucherRepository.findById(id).get();
-        voucherEntity.setCode(voucher.getCode());
-        voucherEntity.setUpdatedAt(voucher.getUpdatedAt());
-        voucherEntity.setVoucherType(voucher.getVoucherType());
-        voucherEntity.setCreatedAt(voucher.getCreatedAt());
-        voucherEntity.setExpirationDate(voucher.getExpirationDate());
-        voucherEntity.setRedeemDate(voucher.getRedeemDate());
-        voucherEntity.setRedeemedBy(voucher.getRedeemedBy());
+        voucher.setCode(voucher.getCode());
+        voucher.setUpdatedAt(voucher.getUpdatedAt());
+        voucher.setVoucherType(voucher.getVoucherType());
+        voucher.setCreatedAt(voucher.getCreatedAt());
+        voucher.setExpirationDate(voucher.getExpirationDate());
+        voucher.setRedeemDate(voucher.getRedeemDate());
+        voucher.setRedeemedBy(voucher.getRedeemedBy());
 
-        voucherRepository.save(voucherEntity);
+        voucherRepository.save(voucher);
         return voucher;
     }
     @Override
     public List<Voucher> searchVouchers(String searchTerm) {
-        List<VoucherEntity> voucherEntities = voucherRepository.searchVouchers(searchTerm);
 
         // Convert VoucherEntities to Vouchers and return
-        return voucherEntities
-                .stream()
-                .map(voucherEntity -> {
-                    CampaignEntity campaignEntity = voucherEntity.getCampaignId();
-                    Campaign campaign = new Campaign(campaignEntity);  // Create a Campaign object using the CampaignEntity
-                    return new Voucher(
-                            voucherEntity.getId(),
-                            campaign,  // Pass the Campaign object instead of CampaignEntity
-                            voucherEntity.getCode(),
-                            voucherEntity.getStatus(),
-                            voucherEntity.getExpirationDate(),
-                            voucherEntity.getUsageLimits(),
-                            voucherEntity.getRestrictions(),
-                            voucherEntity.getCreatedAt(),
-                            voucherEntity.getUpdatedAt(),
-                            voucherEntity.getVoucherType(),
-                            voucherEntity.getRedeemDate(),
-                            voucherEntity.getRedeemedBy()
-                    );
-                })
-                .collect(Collectors.toList());
+        return voucherRepository.searchVouchers(searchTerm);
     }
-
 
     @Override
     public Long countRemainingVouchers() {

@@ -1,12 +1,17 @@
 package com.vnpay.vouchersystem.model;
 
-import com.vnpay.vouchersystem.entity.CampaignEntity;
-import jakarta.persistence.Column;
-import jakarta.persistence.ElementCollection;
-import java.util.Date;
-import java.util.List;
+import jakarta.persistence.*;
+import lombok.*;
 
+import java.util.Date;
+@Entity
+@Getter
+@Setter @NoArgsConstructor
+@Table(name = "campaign", schema = "voucher_app")
 public class Campaign {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "name", nullable = false)
@@ -21,7 +26,7 @@ public class Campaign {
     @Column(name = "end_date")
     private Date endDate;
 
-    @Column(name = "authorized_roles")
+    @Column(name = "authorized_roles", columnDefinition = "TEXT[]")
     private String[] authorizedRoles;
 
     @Column(name = "created_at")
@@ -57,118 +62,4 @@ public class Campaign {
         this.status = status;
         this.budget = budget;
     }
-
-    public Campaign() {
-    }
-    public Campaign(CampaignEntity campaignEntity) {
-        this.id = campaignEntity.getId();
-        this.name = campaignEntity.getName();
-        this.description = campaignEntity.getDescription();
-        this.startDate = campaignEntity.getStartDate();
-        this.endDate = campaignEntity.getEndDate();
-        this.authorizedRoles = campaignEntity.getAuthorizedRoles();
-        this.createdAt = campaignEntity.getCreatedAt();
-        this.updatedAt = campaignEntity.getUpdatedAt();
-        this.createdBy = campaignEntity.getCreatedBy();
-        this.updatedBy = campaignEntity.getUpdatedBy();
-        this.status = campaignEntity.getStatus();
-        this.budget = campaignEntity.getBudget();
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public Date getStartDate() {
-        return startDate;
-    }
-
-    public void setStartDate(Date startDate) {
-        this.startDate = startDate;
-    }
-
-    public Date getEndDate() {
-        return endDate;
-    }
-
-    public void setEndDate(Date endDate) {
-        this.endDate = endDate;
-    }
-
-    public String[] getAuthorizedRoles() {
-        return authorizedRoles;
-    }
-
-    public void setAuthorizedRoles(String[] authorizedRoles) {
-        this.authorizedRoles = authorizedRoles;
-    }
-
-    public Date getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public Date getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(Date updatedAt) {
-        this.updatedAt = updatedAt;
-    }
-
-    public String getCreatedBy() {
-        return createdBy;
-    }
-
-    public void setCreatedBy(String createdBy) {
-        this.createdBy = createdBy;
-    }
-
-    public String getUpdatedBy() {
-        return updatedBy;
-    }
-
-    public void setUpdatedBy(String updatedBy) {
-        this.updatedBy = updatedBy;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public Double getBudget() {
-        return budget;
-    }
-
-    public void setBudget(Double budget) {
-        this.budget = budget;
-    }
 }
-

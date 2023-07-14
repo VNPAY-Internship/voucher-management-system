@@ -1,17 +1,18 @@
 package com.vnpay.vouchersystem.model;
-
-import com.vnpay.vouchersystem.entity.CampaignEntity;
-import jakarta.persistence.Column;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
+import jakarta.persistence.*;
+import lombok.*;
 import java.util.Date;
+
+
+@Entity
 @Getter @Setter @NoArgsConstructor
+@Table(name = "voucher", schema = "voucher_app")
 public class Voucher {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @ManyToOne
     @JoinColumn(name = "campaign_id", nullable = false)
     private Campaign campaignId;
@@ -59,4 +60,5 @@ public class Voucher {
         this.redeemDate = redeemDate;
         this.redeemedBy = redeemedBy;
     }
+
 }
