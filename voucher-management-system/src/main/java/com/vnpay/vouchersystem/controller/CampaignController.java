@@ -1,20 +1,24 @@
 package com.vnpay.vouchersystem.controller;
 
 import com.vnpay.vouchersystem.model.Campaign;
+import com.vnpay.vouchersystem.model.Product;
 import com.vnpay.vouchersystem.service.CampaignService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/api")
 public class CampaignController {
 
-    private final CampaignService campaignService;
+    @Autowired
+    private CampaignService campaignService;
 
     public CampaignController(CampaignService campaignService) {
         this.campaignService = campaignService;
@@ -52,4 +56,11 @@ public class CampaignController {
         campaign = campaignService.updateCampaign(id,campaign);
         return ResponseEntity.ok(campaign);
     }
+
+    @GetMapping("/campaign/{id}/products")
+    public ResponseEntity<Set<Product>> getProductsForCampaign(@PathVariable Long id) {
+        Set<Product> products = campaignService.findProductsByCampaignId(id);
+        return ResponseEntity.ok(products);
+    }
+
 }

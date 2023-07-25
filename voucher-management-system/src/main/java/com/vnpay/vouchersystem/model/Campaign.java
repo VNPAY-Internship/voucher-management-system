@@ -4,6 +4,9 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
+
 @Entity
 @Getter
 @Setter @NoArgsConstructor
@@ -46,6 +49,14 @@ public class Campaign {
 
     @Column(name = "budget")
     private Double budget;
+
+    @ManyToMany
+    @JoinTable(
+            name = "campaign_product",
+            joinColumns = @JoinColumn(name = "campaign_id"),
+            inverseJoinColumns = @JoinColumn(name = "product_id")
+    )
+    private Set<Product> associatedProducts = new HashSet<>();
 
 
     public Campaign(Long id, String name, String description, Date startDate, Date endDate, String[] authorizedRoles, Date createdAt, Date updatedAt, String createdBy, String updatedBy, String status, Double budget) {

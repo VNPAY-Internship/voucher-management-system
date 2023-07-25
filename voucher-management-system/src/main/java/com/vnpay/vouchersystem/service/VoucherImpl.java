@@ -1,8 +1,11 @@
 package com.vnpay.vouchersystem.service;
 
 import com.vnpay.vouchersystem.model.Campaign;
+import com.vnpay.vouchersystem.model.Customer;
 import com.vnpay.vouchersystem.model.Voucher;
+import com.vnpay.vouchersystem.repository.CustomerRepository;
 import com.vnpay.vouchersystem.repository.VoucherRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,7 +14,11 @@ import java.util.stream.Collectors;
 @Service
 public class VoucherImpl implements VoucherService {
 
-    private final VoucherRepository voucherRepository;
+    @Autowired
+    private VoucherRepository voucherRepository;
+
+    @Autowired
+    private CustomerRepository customerRepository;
 
     public VoucherImpl(VoucherRepository voucherRepository) {
         this.voucherRepository = voucherRepository;
@@ -86,5 +93,21 @@ public class VoucherImpl implements VoucherService {
     public Long countRemainingVouchers() {
         return voucherRepository.countByStatus("unredeemed");
     }
+
+
+    @Override
+    public void sendVoucherToCustomer(Long customerId, Long voucherId) {
+        Customer customer = customerRepository.findById(customerId)
+                .orElseThrow(() -> new RuntimeException("Customer not found"));
+
+        Voucher voucher = voucherRepository.findById(voucherId)
+                .orElseThrow(() -> new RuntimeException("Voucher not found"));
+
+        customer.getVouchers().add(voucher); // Adds the voucher to the customer's vouchers.
+        customer.setNumberOfVouchersReceived(customer.getNumberOfVouchersReceived() + 1); // Increments the voucher received count.
+
+        customerRepository.save(customer);
+    }
+
 
 }

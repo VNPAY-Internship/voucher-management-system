@@ -20,5 +20,6 @@ public interface VoucherService {
 
     Long countRemainingVouchers();
 
+    void sendVoucherToCustomer(Long customerId, Long voucherId);
 }
 

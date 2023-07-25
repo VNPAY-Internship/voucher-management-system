@@ -2,10 +2,12 @@ package com.vnpay.vouchersystem.model;
 import jakarta.persistence.*;
 import lombok.*;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 
 @Entity
-@Getter @Setter @NoArgsConstructor
+@Getter @Setter @NoArgsConstructor @AllArgsConstructor
 @Table(name = "voucher", schema = "voucher_app")
 public class Voucher {
 
@@ -16,6 +18,7 @@ public class Voucher {
     @ManyToOne
     @JoinColumn(name = "campaign_id", nullable = false)
     private Campaign campaignId;
+
     @Column(name = "code", nullable = false)
     private String code;
 
@@ -46,9 +49,18 @@ public class Voucher {
     @Column(name = "redeemed_by")
     private String redeemedBy;
 
-    public Voucher(Long id, Campaign campaignId, String code, String status, Date expirationDate, Integer usageLimits, String[] restrictions, Date createdAt, Date updatedAt, String voucherType, Date redeemDate, String redeemedBy) {
+    private Double discountAmount;  // flat discount
+    private Double discountPercentage;  // percent off the product's original price
+
+    @ManyToMany(mappedBy = "vouchers")
+    private Set<Product> products = new HashSet<>();
+
+    @ManyToMany(mappedBy = "vouchers", fetch = FetchType.LAZY)
+    private Set<Customer> customers = new HashSet<>();
+
+    public Voucher(Long id, Campaign campaign, String code, String status, Date expirationDate, Integer usageLimits, String[] restrictions, Date createdAt, Date updatedAt, String voucherType, Date redeemDate, String redeemedBy) {
         this.id = id;
-        this.campaignId = campaignId;
+        this.campaignId = campaign;
         this.code = code;
         this.status = status;
         this.expirationDate = expirationDate;
@@ -60,5 +72,4 @@ public class Voucher {
         this.redeemDate = redeemDate;
         this.redeemedBy = redeemedBy;
     }
-
 }

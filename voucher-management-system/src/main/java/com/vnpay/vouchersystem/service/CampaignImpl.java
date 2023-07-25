@@ -1,7 +1,9 @@
 package com.vnpay.vouchersystem.service;
 
 import com.vnpay.vouchersystem.model.Campaign;
+import com.vnpay.vouchersystem.model.Product;
 import com.vnpay.vouchersystem.repository.CampaignRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -10,7 +12,8 @@ import java.util.stream.Collectors;
 @Service
 public class CampaignImpl implements CampaignService {
 
-    private final CampaignRepository campaignRepository;
+    @Autowired
+    private CampaignRepository campaignRepository;
 
     public CampaignImpl(CampaignRepository campaignRepository) {
         this.campaignRepository = campaignRepository;
@@ -74,5 +77,10 @@ public class CampaignImpl implements CampaignService {
         campaign.setBudget(campaign.getBudget());
         campaignRepository.save(campaign);
         return campaign;
+    }
+
+    @Override
+    public List<Product> findProductsByCampaignId(Long id) {
+        return null;
     }
 }
