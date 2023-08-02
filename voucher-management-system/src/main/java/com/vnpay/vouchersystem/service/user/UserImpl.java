@@ -1,4 +1,4 @@
-package com.vnpay.vouchersystem.service;
+package com.vnpay.vouchersystem.service.user;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.opencsv.bean.CsvToBean;

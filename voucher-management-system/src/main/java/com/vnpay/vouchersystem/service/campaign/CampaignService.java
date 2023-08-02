@@ -1,4 +1,4 @@
-package com.vnpay.vouchersystem.service;
+package com.vnpay.vouchersystem.service.campaign;
 
 import com.vnpay.vouchersystem.model.Campaign;
 import com.vnpay.vouchersystem.model.Product;

@@ -7,6 +7,6 @@ import java.util.Set;
 
 public interface CustomerRepository extends JpaRepository<Customer, Long> {
 
-    Set<Customer> findAllByRedeemedVouchersGreaterThan(int number);
+    Set<Customer> findAllByNumberOfVouchersRedeemedGreaterThan(int value);
 }
 

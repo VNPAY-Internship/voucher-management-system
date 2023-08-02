@@ -1,4 +1,4 @@
-package com.vnpay.vouchersystem.service;
+package com.vnpay.vouchersystem.service.user;
 
 import com.vnpay.vouchersystem.model.User;
 import org.springframework.web.multipart.MultipartFile;

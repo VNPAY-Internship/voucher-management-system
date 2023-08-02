@@ -1,4 +1,4 @@
-package com.vnpay.vouchersystem.service;
+package com.vnpay.vouchersystem.service.customer;
 
 import com.vnpay.vouchersystem.model.Customer;
 import com.vnpay.vouchersystem.repository.CustomerRepository;
@@ -15,7 +15,7 @@ public class CustomerImpl implements CustomerService {
 
     @Override
     public Set<Customer> findSatisfiedCustomers() {
-        return customerRepository.findAllByRedeemedVouchersGreaterThan(5);
+        return customerRepository.findAllByNumberOfVouchersRedeemedGreaterThan(5);
     }
 }
 

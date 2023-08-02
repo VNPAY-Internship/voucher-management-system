@@ -1,4 +1,4 @@
-package com.vnpay.vouchersystem.service;
+package com.vnpay.vouchersystem.service.campaign;
 
 import com.vnpay.vouchersystem.model.Campaign;
 import com.vnpay.vouchersystem.model.Product;
@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -80,7 +81,7 @@ public class CampaignImpl implements CampaignService {
     }
 
     @Override
-    public List<Product> findProductsByCampaignId(Long id) {
+    public Set<Product> findProductsByCampaignId(Long id) {
         return null;
     }
 }

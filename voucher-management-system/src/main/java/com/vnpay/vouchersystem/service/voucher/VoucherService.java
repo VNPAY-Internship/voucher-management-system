@@ -1,4 +1,4 @@
-package com.vnpay.vouchersystem.service;
+package com.vnpay.vouchersystem.service.voucher;
 
 import com.vnpay.vouchersystem.model.Voucher;
 

@@ -2,7 +2,7 @@ package com.vnpay.vouchersystem.controller;
 
 import com.vnpay.vouchersystem.model.Campaign;
 import com.vnpay.vouchersystem.model.Product;
-import com.vnpay.vouchersystem.service.CampaignService;
+import com.vnpay.vouchersystem.service.campaign.CampaignService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,7 +14,7 @@ import java.util.Set;
 
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/v1")
 public class CampaignController {
 
     @Autowired
