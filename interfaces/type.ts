@@ -5,7 +5,9 @@ export interface ICampaign {
 
 export interface IVoucher {
   id: number;
-  campaignId: number;
+  campaignId: {
+    id: number;
+  };
   code: string;
   status: string;
   expirationDate: string;
