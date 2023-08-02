@@ -1,9 +1,11 @@
 package com.vnpay.vouchersystem.repository;
 
-import com.vnpay.vouchersystem.entity.CampaignEntity;
-import com.vnpay.vouchersystem.entity.VoucherEntity;
+import com.vnpay.vouchersystem.model.Campaign;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-public interface CampaignRepository extends JpaRepository<CampaignEntity, Long>
+
+@Repository
+public interface CampaignRepository extends JpaRepository<Campaign, Long>
     {
     }

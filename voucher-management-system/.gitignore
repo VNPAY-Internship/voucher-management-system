@@ -31,3 +31,6 @@ build/
 
 ### VS Code ###
 .vscode/
+.gitignore
+.DS_Store
+/src/main/resources/application.properties

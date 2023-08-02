@@ -1,4 +1,4 @@
-package com.vnpay.vouchersystem.service;
+package com.vnpay.vouchersystem.service.voucher;
 
 import com.vnpay.vouchersystem.model.Voucher;
 
@@ -15,5 +15,11 @@ public interface VoucherService {
     boolean deleteVoucher(Long id);
 
     Voucher updateVoucher(Long id, Voucher user);
+
+    List<Voucher> searchVouchers(String searchTerm);
+
+    Long countRemainingVouchers();
+
+    void sendVoucherToCustomer(Long customerId, Long voucherId);
 }
 
